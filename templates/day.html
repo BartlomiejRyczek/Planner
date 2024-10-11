@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wydarzenia dla dnia {{ date }}</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .checkbox {
+            text-align: center;
+        }
+        .checkbox input {
+            width: 20px;
+            height: 20px;
+        }
+        .delete-btn {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .uwagi-content {
+            white-space: pre-wrap;
+            word-wrap: break-word; 
+        }
+        .uwagi-column {
+            width: 20%; 
+            max-width: 300px; 
+        }
+         .uwagi-content:focus {
+            outline: none;
+            border-color: #007bff;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div id="day-container">
+        <h1>Wydarzenia dla dnia {{ date }}</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Imię i Nazwisko</th>
+                    <th>Rodzaj pracy</th>
+                    <th>Opracowanie</th>
+                    <th>Przestawienie</th>
+                    <th>Wydruk</th>
+                    <th>Wytłoczenie</th>
+                    <th>Odebranie</th>
+                    <th>Uwagi</th>
+                    <th>Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in events %}
+                <tr>
+                    <td>{{ event.first_name }} {{ event.last_name }}</td>
+                    <td>{{ event.description }}</td>
+                    <td><input type="checkbox" class="status-checkbox" data-event-id="{{ event.id }}" data-status="opracowanie" {% if event.opracowanie %}checked{% endif %}></td>
+                    <td><input type="checkbox" class="status-checkbox" data-event-id="{{ event.id }}" data-status="przestawienie" {% if event.przestawienie %}checked{% endif %}></td>
+                    <td><input type="checkbox" class="status-checkbox" data-event-id="{{ event.id }}" data-status="wydruk" {% if event.wydruk %}checked{% endif %}></td>
+                    <td><input type="checkbox" class="status-checkbox" data-event-id="{{ event.id }}" data-status="wytloczenie" {% if event.wytloczenie %}checked{% endif %}></td>
+                    <td><input type="checkbox" class="status-checkbox" data-event-id="{{ event.id }}" data-status="odebranie" {% if event.odebranie %}checked{% endif %}></td>
+                    <td>
+                        <div class="uwagi-content" contenteditable="true" data-event-id="{{ event.id }}">{{ event.uwagi }}</div>
+                    </td>
+                    <td><button onclick="deleteEvent({{ event.id }})">Usuń</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/">Powrót do kalendarza</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle checkbox changes
+            document.querySelectorAll('.status-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const eventId = this.dataset.eventId;
+                    const status = this.dataset.status;
+                    const isChecked = this.checked;
+                    
+                    if (!isChecked) {
+                        if (confirm(`Czy na pewno chcesz odznaczyć status "${status}"?`)) {
+                            updateEventStatus(eventId, status, isChecked);
+                        } else {
+                            // If the user cancels, revert the checkbox state
+                            this.checked = true;
+                        }
+                    } else {
+                        updateEventStatus(eventId, status, isChecked);
+                    }
+                });
+            });
+    
+            // Handle uwagi content changes
+            document.querySelectorAll('.uwagi-content').forEach(uwagiDiv => {
+                uwagiDiv.addEventListener('blur', function() {
+                    const eventId = this.dataset.eventId;
+                    const uwagi = this.textContent;
+                    
+                    updateEventUwagi(eventId, uwagi);
+                });
+            });
+        });
+    
+        function updateEventStatus(eventId, status, isChecked) {
+            fetch(`/update_event/${eventId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    [status]: isChecked
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Status updated successfully');
+            })
+            .catch(error => {
+                console.error('Error updating status:', error);
+            });
+        }
+    
+        function updateEventUwagi(eventId, uwagi) {
+            fetch(`/update_event/${eventId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    uwagi: uwagi
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Uwagi updated successfully');
+            })
+            .catch(error => {
+                console.error('Error updating uwagi:', error);
+            });
+        }
+    
+        function deleteEvent(eventId) {
+            if (confirm('Czy na pewno chcesz usunąć to wydarzenie?')) {
+                fetch(`/delete_event/${eventId}`, {
+                    method: 'DELETE',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Event deleted successfully');
+                    location.reload(); // Refresh the page to reflect the changes
+                })
+                .catch(error => {
+                    console.error('Error deleting event:', error);
+                });
+            }
+        }
+    </script>
+</body>
+</html>

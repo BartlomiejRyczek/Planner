@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalendarz Wydarzeń</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div id="calendar-container">
+        <h1>Kalendarz Wydarzeń</h1>
+        <div id="month-controls">
+            <button id="prev-month">Poprzedni</button>
+            <h2 id="month-year"></h2>
+            <button id="next-month">Następny</button>
+        </div>
+        <div id="calendar-header">
+            <div class="day-name">Poniedziałek</div>
+            <div class="day-name">Wtorek</div>
+            <div class="day-name">Środa</div>
+            <div class="day-name">Czwartek</div>
+            <div class="day-name">Piątek</div>
+            <div class="day-name">Sobota</div>
+            <div class="day-name">Niedziela</div>
+        </div>
+        <div id="calendar"></div>
+    </div>
+
+    <form id="event-form">
+        <h2>Dodaj Wydarzenie</h2>
+        <input type="text" id="first_name" placeholder="Imię" required>
+        <input type="text" id="last_name" placeholder="Nazwisko" required>
+        <input type="date" id="date" required>
+        <input type="text" id="description" placeholder="Opis">
+        <textarea id="uwagi" placeholder="Uwagi"></textarea>
+        <button type="submit">Dodaj</button>
+    </form>
+
+    <form id="search-form">
+        <h2>Szukaj</h2>
+        <input type="text" id="search-query" placeholder="Wpisz imię lub nazwisko">
+        <button type="submit">Szukaj</button>
+    </form>
+
+    <div id="search-results"></div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+
+</body>
+</html>
