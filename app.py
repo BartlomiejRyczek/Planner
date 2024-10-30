@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from waitress import serve 
 import os
+
 
 
 app = Flask(__name__)
@@ -19,8 +21,8 @@ class Event(db.Model):
     opracowanie = db.Column(db.Boolean, default=False)
     przestawienie = db.Column(db.Boolean, default=False)
     wydruk = db.Column(db.Boolean, default=False)
-    wytloczenie = db.Column(db.Boolean, default=False)
-    odebranie = db.Column(db.Boolean, default=False)
+    wytloczenie = db.Column(db.String(200), default="Wpisz datę wytłoczenia: ", nullable=True)
+    odebranie = db.Column(db.String(200), default="Wpisz datę odebrania: ", nullable=True)
     uwagi = db.Column(db.String(200), nullable=True)
 
 @app.route('/')
@@ -109,6 +111,9 @@ def search_events():
 def update_event(event_id):
     event = Event.query.get_or_404(event_id)
     data = request.json
+    
+    # Dodaj logi
+    print(f"Updating event {event_id} with data: {data}")
 
     if 'opracowanie' in data:
         event.opracowanie = data['opracowanie']
@@ -124,7 +129,9 @@ def update_event(event_id):
         event.uwagi = data['uwagi']
 
     db.session.commit()
+    print(f"Event {event_id} updated successfully.")
     return jsonify({'message': 'Event updated successfully'}), 200
+
 
 @app.route('/day/<date>')
 def day_view(date):
@@ -139,5 +146,8 @@ def delete_event(event_id):
     db.session.commit()
     return jsonify({'message': 'Event deleted successfully'}), 200
 
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # Użyj Waitress do uruchomienia aplikacji
+    print("Uruchamiam aplikację na localhost:5000 albo po ip mozna sprawdzic w cmd komenda ipconfig")
+    serve(app, host='0.0.0.0', port=5000)
