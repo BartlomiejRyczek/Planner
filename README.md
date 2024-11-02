@@ -1,22 +1,12 @@
-Zainstalowanie pythona na linuxie
-
-sudo apt update
-sudo apt install -y python3 python3-venv python3-pip
-
-
-
-Sprawdzenie czy sie zainstalowal 
-
-python3 --version
-
-
-
-Instalacja pakietow z requirements
-
-pip install -r requirements.txt
-
-
-
-Sprawdzenie czy pakiety sie zainstalowaly
-
-pip list
+Budowanie obrazu:
+docker build -t dentamaxkalendarz .
+Uruchamianie kontenera:
+docker run -d -p 5000:8000 -v "${pwd}/instance:/app/instance" dentamaxkalendarz
+Sprawdzanie statusu:
+docker ps
+Sprawdzanie logów:
+docker logs <container_id>
+Zatrzymywanie kontenera:
+docker stop <container_id>
+Usuwanie kontenera:
+docker rm <container_id>
