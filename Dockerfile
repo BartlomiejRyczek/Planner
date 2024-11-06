@@ -17,7 +17,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app
 
 # Otwórz port 8000 (lub inny port, na którym działa aplikacja Flask)
-EXPOSE 8000
+EXPOSE 5000
 
 # Uruchom aplikację za pomocą serwera Waitress
-CMD ["waitress-serve", "--port=8000", "app:app"]
+CMD ["waitress-serve", "--port=5000", "app:app"]

@@ -10,3 +10,6 @@ Zatrzymywanie kontenera:
 docker stop <container_id>
 Usuwanie kontenera:
 docker rm <container_id>
+
+
+trzeba ustawic sciezke w pliku uruchomdocker.sh
