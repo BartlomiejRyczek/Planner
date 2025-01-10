@@ -1,3 +1,7 @@
+It is a planner designed to record dental tasks that need to be completed, along with the progress of
+
+
+
 Budowanie obrazu:
 docker build -t dentamaxkalendarz .
 Uruchamianie kontenera:
