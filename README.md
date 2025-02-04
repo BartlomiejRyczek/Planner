@@ -1,45 +1,51 @@
-# Opis
+# 📌 Projekt: Kalendarz Dentystyczny
 
-Projekt umożliwia przechowywanie oraz podgląd zadań dentystycznych w kalendarzu. Wykorzystuje Flask, bazę danych (PostgreSQL oraz SQLAlchemy), Docker i Docker Compose.
+## 🦷 Opis
+Projekt umożliwia przechowywanie oraz podgląd zadań dentystycznych w kalendarzu. Wykorzystuje **Flask**, **PostgreSQL**, **SQLAlchemy**, **Docker** i **Docker Compose**, zapewniając wygodne zarządzanie harmonogramem.
 
-# Struktura plików
-* script.js – obsługa interakcji po stronie klienta (renderowanie kalendarza, obsługa formularzy, zapytania Fetch).
-* styles.css – stylizacja komponentów wizualnych (kalendarz, formularze).
-* index.html i day.html – szablony HTML wyświetlające widok kalendarza oraz widok dnia.
-* app.py – główna logika serwera Flask (API, obsługa bazy danych).
-* uruchomdocker.sh (Linux/macOS) oraz uruchomdocker.bat (Windows) – skrypty do uruchomienia aplikacji w kontenerze Docker.
-* requirements.txt – lista wymaganych pakietów Pythona.
-* Dockerfile – definicja obrazu Docker (instalacja zależności i konfiguracja serwera).
-* docker-compose.yaml – konfiguracja uruchamiania aplikacji (Flask + baza PostgreSQL) w wielokontenerowym środowisku.
+---
 
-# Uruchomienie 
-1. Zainstaluj Docker i Docker Compose 
-2. Uruchom skrypt który automatycznie utworzy kontener czyli uruchomdocker.bat lub uruchomdocker.sh w zaleznosci z jakiego systemu operacyjnego korzystasz 
-3. Aplikacja dostępna będzie domyślnie pod adresem http://localhost:5000
+## 📂 Struktura Plików
+| Plik | Opis |
+|------|------|
+| `script.js` | Obsługa interakcji użytkownika (renderowanie kalendarza, obsługa formularzy, zapytania Fetch) |
+| `styles.css` | Stylizacja komponentów wizualnych (kalendarz, formularze) |
+| `index.html`, `day.html` | Szablony HTML wyświetlające widok kalendarza oraz widok dnia |
+| `app.py` | Główna logika serwera Flask (API, obsługa bazy danych) |
+| `uruchomdocker.sh` (Linux/macOS), `uruchomdocker.bat` (Windows) | Skrypty do uruchamiania aplikacji w kontenerze Docker |
+| `requirements.txt` | Lista wymaganych pakietów Pythona |
+| `Dockerfile` | Definicja obrazu Dockera (instalacja zależności i konfiguracja serwera) |
+| `docker-compose.yaml` | Konfiguracja uruchamiania aplikacji (Flask + PostgreSQL) w wielokontenerowym środowisku |
 
-# Drugi sposób 
+---
 
-1. W folderze z projektem uruchom: 
-``` bash
-docker-compose up --build -d
-```
-2. Aplikacja dostępna będzie domyślnie pod adresem http://localhost:5000
+## 🚀 Uruchomienie Aplikacji
 
+### 🔹 Metoda 1: Skrypty uruchamiające
+1. **Zainstaluj Docker i Docker Compose** (jeśli jeszcze ich nie masz).
+2. Uruchom odpowiedni skrypt:
+   - **Windows**: `uruchomdocker.bat`
+   - **Linux/macOS**: `./uruchomdocker.sh`
+3. Aplikacja będzie dostępna pod adresem: **[http://localhost:5000](http://localhost:5000)**
 
-# Polecenia Docker
-* Sprawdzenie uruchomionych kontenerów
-``` bash
-docker ps
-```
-* Logi kontenera
-``` bash
-docker logs <nazwa_kontenera>
-```
-* Zatrzymanie kontenera
-``` bash
-docker stop <nazwa_kontenera>
-```
-* Usuwanie kontenera
-``` bash
-docker rm <nazwa_kontenera>
-```
+### 🔹 Metoda 2: Ręczne uruchomienie przez Docker Compose
+1. W folderze z projektem uruchom polecenie:
+   ```bash
+   docker-compose up --build -d
+   ```
+2. Aplikacja będzie dostępna pod adresem **[http://localhost:5000](http://localhost:5000)**
+
+---
+
+## 🐳 Polecenia Docker
+
+| Komenda | Opis |
+|---------|------|
+| `docker ps` | Sprawdzenie uruchomionych kontenerów |
+| `docker logs <nazwa_kontenera>` | Podgląd logów kontenera |
+| `docker stop <nazwa_kontenera>` | Zatrzymanie kontenera |
+| `docker rm <nazwa_kontenera>` | Usunięcie kontenera |
+
+---
+
+📌 **Gotowe!** Twoja aplikacja działa w kontenerze Docker. Jeśli masz pytania, skontaktuj się ze mną! 🚀
