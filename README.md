@@ -13,12 +13,18 @@ Projekt umożliwia przechowywanie oraz podgląd zadań dentystycznych w kalendar
 * docker-compose.yaml – konfiguracja uruchamiania aplikacji (Flask + baza PostgreSQL) w wielokontenerowym środowisku.
 
 # Uruchomienie 
-1. Zainstaluj Docker i Docker Compose
-2. W folderze z projektem uruchom: 
+1. Zainstaluj Docker i Docker Compose 
+2. Uruchom skrypt który automatycznie utworzy kontener czyli uruchomdocker.bat lub uruchomdocker.sh w zaleznosci z jakiego systemu operacyjnego korzystasz 
+3. Aplikacja dostępna będzie domyślnie pod adresem http://localhost:5000
+
+# Drugi sposób 
+
+1. W folderze z projektem uruchom: 
 ``` bash
 docker-compose up --build -d
 ```
-3. Aplikacja dostępna będzie domyślnie pod adresem http://localhost:5000
+2. Aplikacja dostępna będzie domyślnie pod adresem http://localhost:5000
+
 
 # Polecenia Docker
 * Sprawdzenie uruchomionych kontenerów

@@ -21,8 +21,8 @@ class Event(db.Model):
     opracowanie = db.Column(db.Boolean, default=False)
     przestawienie = db.Column(db.Boolean, default=False)
     wydruk = db.Column(db.Boolean, default=False)
-    wytloczenie = db.Column(db.String(200), default="Wpisz datę wytłoczenia: ", nullable=True)
-    odebranie = db.Column(db.String(200), default="Wpisz datę odebrania: ", nullable=True)
+    wytloczenie = db.Column(db.String(200), default="Data wytłoczenia:  ", nullable=True)
+    odebranie = db.Column(db.String(200), default="Data odebrania:  ", nullable=True)
     uwagi = db.Column(db.String(200), nullable=True)
 
 @app.route('/')

@@ -1,5 +1,5 @@
 # Użyj oficjalnego obrazu Pythona w wersji 3.11 jako bazowego
-FROM python:3.11
+FROM --platform=linux/arm64 python:3.11
 
 # Ustaw zmienną środowiskową, aby Python nie buforował wyjścia (przydatne do logowania)
 ENV PYTHONUNBUFFERED=1
